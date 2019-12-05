@@ -1,0 +1,24 @@
+{
+  "name": "lne-channel",
+  "version": "1.0.0",
+  "description": "Micro service for RSS aggregation",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/La-Nouvelle-Epoch-18/lne-channel.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/La-Nouvelle-Epoch-18/lne-channel/issues"
+  },
+  "homepage": "https://github.com/La-Nouvelle-Epoch-18/lne-channel#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "winston": "^3.2.1"
+  }
+}

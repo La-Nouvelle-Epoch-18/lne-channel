@@ -1,1 +1,1 @@
-# lne-chanel
+# lne-channel
