@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+const request = require('request');
+
+const config = require('./config');
 
 const Middleware = {
     parseToken(req, res, next) {
@@ -7,10 +10,6 @@ const Middleware = {
         if (authorization && (spaceIndex = authorization.indexOf(' ')) != -1 && authorization.substring(0, spaceIndex) === 'Bearer') {
             req.token = authorization.substring(spaceIndex);
             req.payload = jwt.decode(req.token);
-            // TODO: remove this
-            req.payload = {
-                userId: 50
-            };
             next();
         }
         else {
@@ -18,8 +17,26 @@ const Middleware = {
         }
     },
     async verifyToken(req, res, next) {
-        // TODO: make a request on user micro-service to check
-        next();
+        if (req.payload) {
+            request.post(`${config.USER_SERVICE_URL}/v1/auth/verify`, {
+                headers: {
+                    authorization: 'bearer ' + req.token
+                }
+            }, (err, response, body) => {
+                if (err) {
+                    next(err);
+                }
+                else if (response.statusCode == 200) {
+                    next(); // ok
+                }
+                else {
+                    next(new Error("Invalid auth token"));
+                }
+            });
+        }
+        else {
+            next(new Error("Invalid payload"));
+        }
     }
 };
 

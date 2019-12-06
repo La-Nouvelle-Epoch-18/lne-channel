@@ -6,7 +6,6 @@ const { RssItem } = require('./models');
 
 exports.fetchAndSave = async function (url) {
     let feed = await parser.parseURL(url);
-    console.log(feed.title);
   
     feed.items.forEach(item => {
         let newSource = new RssItem({ title: item.title, link: item.link, ts: item.pubDate, content: item.content });

@@ -28,20 +28,25 @@ async function getRSS(req, res) {
 }
 
 async function addRSS(req, res) {
-    try {
-        const result = await RssSource.findOne({ url: req.body.url });
-        if (result) {
-            res.status(409).json({ message: "Already present" });
-        }
-        else {
-            let newSource = new RssSource({ user: req.payload.userId, url: req.body.url });
-            await newSource.save();
-            await parser.fetchAndSave(req.body.url);
-            res.status(204).end();
-        }
+    if (req.token.userType !== "school") {
+        res.status(403).json({ err: "Permission deny" });
     }
-    catch (err) {
-        logger.error(err);
-        res.status(500).json({ err });
+    else {
+        try {
+            const result = await RssSource.findOne({ url: req.body.url });
+            if (result) {
+                res.status(409).json({ message: "Already present" });
+            }
+            else {
+                let newSource = new RssSource({ user: req.payload.userId, url: req.body.url });
+                await newSource.save();
+                await parser.fetchAndSave(req.body.url);
+                res.status(204).end();
+            }
+        }
+        catch (err) {
+            logger.error(err);
+            res.status(500).json({ err });
+        }
     }
 }
