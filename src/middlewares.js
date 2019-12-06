@@ -7,6 +7,10 @@ const Middleware = {
         if (authorization && (spaceIndex = authorization.indexOf(' ')) != -1 && authorization.substring(0, spaceIndex) === 'Bearer') {
             req.token = authorization.substring(spaceIndex);
             req.payload = jwt.decode(req.token);
+            // TODO: remove this
+            req.payload = {
+                userId: 50
+            };
             next();
         }
         else {

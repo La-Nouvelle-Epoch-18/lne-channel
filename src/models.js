@@ -32,8 +32,8 @@ const RssItemSchema = new mongoose.Schema({
     }
 });
 
-const RssSource = mongoose.model('RssSource', RssSourceSchema);
-const RssItem = mongoose.model('RssItem', RssItemSchema);
+const RssSource = mongoose.model('rssSource', RssSourceSchema);
+const RssItem = mongoose.model('rssItem', RssItemSchema);
 
 module.exports = {
     RssSource,
