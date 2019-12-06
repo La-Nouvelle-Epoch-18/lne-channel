@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const RssSourceSchema = new mongoose.Schema({
     user: {
-        type: Number,
+        type: String,
         index: true
     },
     url: {
@@ -27,7 +27,7 @@ const RssItemSchema = new mongoose.Schema({
         index: true
     },
     user: {
-        type: Number,
+        type: String,
         index: true
     }
 });
