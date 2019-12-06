@@ -28,7 +28,7 @@ async function getRSS(req, res) {
 }
 
 async function addRSS(req, res) {
-    if (req.token.userType !== "school") {
+    if (req.payload.userType !== "school") {
         res.status(403).json({ err: "Permission deny" });
     }
     else {
