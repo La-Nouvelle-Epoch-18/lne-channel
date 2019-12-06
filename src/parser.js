@@ -9,7 +9,7 @@ exports.fetchAndSave = async function (url) {
     console.log(feed.title);
   
     feed.items.forEach(item => {
-        let newSource = new RssItem({ title: item.title, link: item.link, pubDate: item.pubDate, content: item.content });
+        let newSource = new RssItem({ title: item.title, link: item.link, ts: item.pubDate, content: item.content });
         newSource.save(async (err, item) => {
             if (err) {
                 logger.error("Fail to save item to db");

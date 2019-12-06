@@ -22,7 +22,7 @@ const RssItemSchema = new mongoose.Schema({
     content: {
         type: String,
     },
-    pubDate: {
+    ts: {
         type: Date,
         index: true
     },

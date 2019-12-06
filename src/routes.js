@@ -14,10 +14,10 @@ async function getRSS(req, res) {
     try {
         let items;
         if (req.query.user) {
-            items = await RssItem.find({ user: req.query.user }).sort({ pubDate: -1 }).limit(50);
+            items = await RssItem.find({ user: req.query.user }).sort({ ts: -1 }).limit(50);
         }
         else {
-            items = await RssItem.find().sort({ pubDate: -1 }).limit(50);
+            items = await RssItem.find().sort({ ts: -1 }).limit(50);
         }
         res.json(items);
     }
@@ -36,9 +36,8 @@ async function addRSS(req, res) {
         else {
             let newSource = new RssSource({ user: req.payload.userId, url: req.body.url });
             await newSource.save();
-            // don't wait end of fetch
-            parser.fetchAndSave(req.body.url).catch(logger.error);
-            res.status(204);
+            await parser.fetchAndSave(req.body.url);
+            res.status(204).end();
         }
     }
     catch (err) {
