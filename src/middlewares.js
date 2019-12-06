@@ -7,8 +7,8 @@ const Middleware = {
     parseToken(req, res, next) {
         const authorization = req.headers.authorization;
         let spaceIndex;
-        if (authorization && (spaceIndex = authorization.indexOf(' ')) != -1 && authorization.substring(0, spaceIndex) === 'Bearer') {
-            req.token = authorization.substring(spaceIndex);
+        if (authorization && (spaceIndex = authorization.indexOf(' ')) != -1 && authorization.substring(0, spaceIndex).toLowerCase() === 'bearer') {
+            req.token = authorization.substring(spaceIndex + 1);
             req.payload = jwt.decode(req.token);
             next();
         }
