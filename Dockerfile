@@ -4,13 +4,13 @@ FROM node:10
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package*.json ./
+COPY package*.json .
 
 RUN npm install --only=production
 
 # Bundle app source
-COPY app.js ./
-COPY src ./
+COPY app.js .
+COPY src ./src
 
 # default port
 EXPOSE 8080
